@@ -1,19 +1,15 @@
-// Load HTTP module
-const http = require("http");
+const express = require("express");
+const env = require("dotenv");
+const userRouter = require("./Routes/user");
+const app = express();
 
-const hostname = "127.0.0.1";
-const port = 8000;
+env.config();
+app.use("/user", userRouter);
 
-// Create HTTP server
-const server = http.createServer(function (req, res) {
-  // Set the response HTTP header with HTTP status and Content type
-  res.writeHead(200, { "Content-Type": "text/plain" });
-
-  // Send the response body "Hello World"
-  res.end("Hello World\n");
+app.get("/", (req, res) => {
+  res.status(200).json({ value: "Test" });
 });
 
-// Prints a log once the server starts listening
-server.listen(port, hostname, function () {
-  console.log(`Server running at http://${hostname}:${port}/`);
+app.listen(process.env.PORT, () => {
+  console.log(`Example app listening on port ${process.env.PORT}`);
 });
