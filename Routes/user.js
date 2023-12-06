@@ -28,6 +28,7 @@ router.post("/", async (req, res) => {
 
 router.get('/',async(req, res) => {
   let users = await User.find({})
+  res.header("Access-Control-Allow-Origin", "*");
   res.status(200).json({users : users})
 })
 
