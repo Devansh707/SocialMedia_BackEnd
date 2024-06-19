@@ -12,7 +12,8 @@ const userSchema = new mongoose.Schema({
     email : {type : String, required : true},
     bio : {type : String, required : true},
     createdOn : {type: Date, default : Date.now(), required : true},
-    lastUpdatedOn: {type: Date, required : true}
+    lastUpdatedOn: {type: Date, required : true},
+    lastLoggedIn : {type: Date, required : true},
 })
 
 module.exports = mongoose.model("User", userSchema)

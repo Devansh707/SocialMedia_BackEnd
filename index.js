@@ -2,15 +2,18 @@ const express = require("express");
 const mongoose = require("mongoose");
 const env = require("dotenv");
 const userRouter = require("./Routes/user");
-const User = require("./Schemas/user")
+const morgan = require("morgan")
+var cors = require('cors');
 
 //Setting up express
 const app = express();
+app.options('*', cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(morgan('dev'))
 const main = async () => {
   env.config();
+  
   app.use("/user", userRouter);
   try {
     mongoose.connect(process.env.DB_URL);
