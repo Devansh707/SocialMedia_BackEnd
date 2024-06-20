@@ -8,6 +8,7 @@ var cors = require('cors');
 //Setting up express
 const app = express();
 app.options('*', cors())
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'))

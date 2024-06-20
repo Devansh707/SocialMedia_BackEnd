@@ -8,7 +8,7 @@ router.post("/", async (req, res) => {
       firstName: req.body.firstName,
       middleName: req.body.middleName,
       lastName: req.body.lastName,
-      dateOfBirth: Date.now(),
+      dateOfBirth: req.body.dob,
       userName: req.body.userName,
       password: req.body.password,
       gender: req.body.gender,
@@ -17,7 +17,8 @@ router.post("/", async (req, res) => {
       bio: req.body.firstName,
       createdOn: Date.now(),
       lastUpdatedOn: Date.now(),
-      lastLoggedIn : Date.now()
+      lastLoggedIn : Date.now(),
+      profilePic : req.body.profilePic
     });
     let user = await User.find({ userName: req.body.userName });
     res.status(200).json({ user: user });
@@ -29,7 +30,7 @@ router.post("/", async (req, res) => {
 
 router.post('/login',async(req, res) => {
   let user = await User.findOne({ userName: req.body.userName, password : req.body.password })
-  user.lastLoggedIn = Date.now()
+  if(user) user.lastLoggedIn = Date.now()
   res.header("Access-Control-Allow-Origin", "*");
   res.status(200).json({user : user})
 })

@@ -7,13 +7,14 @@ const userSchema = new mongoose.Schema({
     dateOfBirth : {type : Date, required : true},
     userName : {type : String, required : true},
     password : {type : String, required : true},
-    gender : {type : String, required : true},
-    phoneNumber : {type : Number, required : true},
-    email : {type : String, required : true},
-    bio : {type : String, required : true},
+    gender : {type : Boolean, required : true},
+    phoneNumber : {type : Number},
+    email : {type : String},
+    bio : {type : String},
     createdOn : {type: Date, default : Date.now(), required : true},
     lastUpdatedOn: {type: Date, required : true},
     lastLoggedIn : {type: Date, required : true},
+    profilePic : {type: String}
 })
 
 module.exports = mongoose.model("User", userSchema)
