@@ -2,6 +2,15 @@ const express = require("express");
 const router = express.Router();
 const User = require("../Schemas/user.js");
 
+router.get("/", async (req, res) => {
+  try {
+    res.header("Access-Control-Allow-Origin", "*");
+    let user = await User.findOne({ userName: req.query.userName });
+    if (user) user.lastLoggedIn = Date.now();
+    res.status(200).json({ user: user });
+  } catch (error) { res.status(400).send("Failed to add user");}
+});
+
 router.post("/", async (req, res) => {
   try {
     await User.create({
@@ -17,8 +26,8 @@ router.post("/", async (req, res) => {
       bio: req.body.firstName,
       createdOn: Date.now(),
       lastUpdatedOn: Date.now(),
-      lastLoggedIn : Date.now(),
-      profilePic : req.body.profilePic
+      lastLoggedIn: Date.now(),
+      profilePic: req.body.profilePic,
     });
     let user = await User.find({ userName: req.body.userName });
     res.status(200).json({ user: user });
@@ -28,11 +37,14 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.post('/login',async(req, res) => {
-  let user = await User.findOne({ userName: req.body.userName, password : req.body.password })
-  if(user) user.lastLoggedIn = Date.now()
+router.post("/login", async (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
-  res.status(200).json({user : user})
-})
+  let user = await User.findOne({
+    userName: req.body.userName,
+    password: req.body.password,
+  });
+  if (user) user.lastLoggedIn = Date.now();
+  res.status(200).json({ user: user });
+});
 
 module.exports = router;
