@@ -5,7 +5,7 @@ const User = require("../Schemas/user.js");
 router.get("/", async (req, res) => {
   try {
     res.header("Access-Control-Allow-Origin", "*");
-    let user = await User.findOne({ userName: req.query.userName });
+    let user = await User.findOne({ _id: req.query.id });
     if (user) user.lastLoggedIn = Date.now();
     res.status(200).json({ user: user });
   } catch (error) { res.status(400).send("Failed to add user");}
