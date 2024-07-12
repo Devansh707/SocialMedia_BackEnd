@@ -1,6 +1,6 @@
-var bcrypt = require("bcryptjs");
+import { hashSync, compareSync } from "bcryptjs";
 
-const createHash = (data) => bcrypt.hashSync(data, 10);
-const compareHash = (data,hash) => bcrypt.compareSync(data, hash);
+const createHash = (data) => hashSync(data, 10);
+const compareHash = (data,hash) => compareSync(data, hash);
 
-module.exports = { createHash, compareHash };
+export default { createHash, compareHash };
