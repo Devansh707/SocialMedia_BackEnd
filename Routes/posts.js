@@ -7,7 +7,7 @@ router.post("/", async (req, res) => {
     res.header("Access-Control-Allow-Origin", "*");
     const { userId, image, caption } = req.body;
     let post = await postSchema.create({
-      userId: userId,
+      userName: userId,
       createdOn: Date.now(),
       image: image,
       caption: caption ?? "",
@@ -21,7 +21,7 @@ router.post("/", async (req, res) => {
 router.get("/", async(req, res) => {
   try {
     res.header("Access-Control-Allow-Origin", "*");
-    let posts = await postSchema.find({_id : req.query.id})
+    let posts = await postSchema.find({userName : req.query.id})
     res.status(200).json({ posts: posts });
   } catch (error) {
     res.status(400).send("Failed ");
