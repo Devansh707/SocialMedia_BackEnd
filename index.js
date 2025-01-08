@@ -22,9 +22,12 @@ app.use("/post", postRouter);
 try {
   connect(process.env.DB_URL);
   console.log("Connected to DB");
-  app.listen(process.env.PORT, () => {
-    console.log(`Example app listening on port ${process.env.PORT}`);
-  });
+  // app.listen(process.env.PORT, () => {
+  //   console.log(`Example app listening on port ${process.env.PORT}`);
+  // });
 } catch (error) {
   console.log(`Error : ${error}`);
 }
+
+module.exports = app;
+
