@@ -1,5 +1,6 @@
-import { UUID } from "mongodb";
-import { Schema, model } from "mongoose";
+const { UUID } = require("mongodb");
+const { Schema, model } = require("mongoose");
+
 
 const postSchema = new Schema({
   caption: String,
@@ -10,4 +11,4 @@ const postSchema = new Schema({
   image: { type: String, required: true },
 });
 
-export default model("Post", postSchema);
+module.exports = model("Post", postSchema);

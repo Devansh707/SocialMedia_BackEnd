@@ -1,8 +1,7 @@
-import { Router } from "express";
-const router = Router();
-import userSchema from "../Schemas/user.js";
+const userSchema = require("../Schemas/user.js");
+const user = require("express").Router();
 
-router.get("/", async (req, res) => {
+user.get("/user", async (req, res) => {
   try {
     res.header("Access-Control-Allow-Origin", "*");
     let user = await userSchema.findOne({ _id: req.query.id });
@@ -13,7 +12,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+user.post("/user", async (req, res) => {
   try {
     let newUser = getUser(req.body);
 
@@ -26,7 +25,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/", async (req, res) => {
+user.put("/user", async (req, res) => {
   try {
     let newUser = getUser(req.body);
 
@@ -50,7 +49,7 @@ router.put("/", async (req, res) => {
   }
 });
 
-router.post("/login", async (req, res) => {
+user.post("/user/login", async (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
   let user = await userSchema.findOne({
     userName: req.body.userName,
@@ -60,7 +59,7 @@ router.post("/login", async (req, res) => {
   res.status(200).json({ user: user });
 });
 
-router.post("/test", async (req, res) => {
+user.post("/user/test", async (req, res) => {
   const statusCode = getRandomStatusCode();
 
   switch (statusCode) {
@@ -107,4 +106,4 @@ const getUser = (request) => {
   };
 };
 
-export default router;
+module.exports = user;

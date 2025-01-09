@@ -1,8 +1,7 @@
-import { Router } from "express";
-const router = Router();
-import postSchema from "../Schemas/post.js";
+const postSchema = require("../Schemas/post.js");
+const post = require("express").Router();
 
-router.post("/", async (req, res) => {
+post.post("/post", async (req, res) => {
   try {
     res.header("Access-Control-Allow-Origin", "*");
     const { userId, image, caption } = req.body;
@@ -18,7 +17,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/", async(req, res) => {
+post.get("/post", async(req, res) => {
   try {
     res.header("Access-Control-Allow-Origin", "*");
     let posts = await postSchema.find({userName : req.query.id})
@@ -28,4 +27,4 @@ router.get("/", async(req, res) => {
   }
 })
 
-export default router;
+module.exports = post;
